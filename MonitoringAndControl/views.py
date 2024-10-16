@@ -7,7 +7,7 @@ import os
 import numpy as np
 from ultralytics import YOLO
 
-model = os.path.join("C:\\Dev2\\MiniProject\\dynamicTrafficLightControl\\ProjectFolder\\MonitoringAndControl\\best.pt")
+model = YOLO("best.pt")
 
 cam = cv.VideoCapture(0)
 
