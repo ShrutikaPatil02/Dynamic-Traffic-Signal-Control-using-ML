@@ -26,6 +26,10 @@
                 <td class = "values" id = "timerWest">{{timer}}</td>
             </tr>
         </table>
+        <div class="signal">
+            <div class="light" id="westRed"></div>
+            <div class="light" id="westGreen"></div>            
+        </div>
     </div>
 
     <div id="northernIslesAndSouthernProvinceDiv">
@@ -40,10 +44,15 @@
                 <td class = "values" id = "timerNorth">{{timer}}</td>
             </tr>
         </table>
+        <div class="signal">
+            <div class="light" id="northRed"></div>
+            <div class="light" id="northGreen"></div>            
+        </div>
         </div>
 
         <div id = "southernProvinceDiv">
-        <table id = "southernProvince">
+            <div id = "southernProvinceInnerDiv">
+            <table id = "southernProvince">
             <tr>
                 <td class = "attribute">No. of Vehicles</td>
                 <td class = "values" id = "noOfVehiclesSouth">{{noOfVehiclesSouth}}</td>
@@ -52,7 +61,12 @@
                 <td class = "attribute">Timer</td>
                 <td class = "values" id = "timerSouth">{{timer}}</td>
             </tr>
-        </table>
+            </table>
+            <div class="signal">
+                <div class="light" id="southRed"></div>
+                <div class="light" id="southGreen"></div>            
+            </div>
+        </div>
         </div>
         
     </div>
@@ -67,6 +81,10 @@
                 <td class = "values" id = "timerEast">{{timer}}</td>
             </tr>
         </table>
+        <div class="signal">
+            <div class="light" id="eastRed"></div>
+            <div class="light" id="eastGreen"></div>            
+        </div>
     </div>
 </body>
 </html>
