@@ -11,16 +11,13 @@ function updateData(){
         document.getElementById('noOfVehiclesSouth').innerHTML = data.noOfVehiclesSouth;
         document.getElementById('timerSouth').innerHTML = data.timerSouth;
 
-        if(document.getElementById('timerNorth').innerHTML != '0'){
-            document.getElementById('northRed').setAttribute.backgroundColor = "black";
-            document.getElementById('northGreen').setAttribute.backgroundColor = "#5adf02";
-
-            /*document.getElementById('northRed').setAttribute("background-color","#FF033E");
-            document.getElementById('northGreen').setAttribute("background-color","black");*/
+        /*if(data.timerNorth == 0){
+            document.getElementById('northRed').setAttribute("style", "backgorund-color:#FF033E");
+            document.getElementById('northGreen').setAttribute("style", "backgorund-color:#337f00");
         }
         else{
-            document.getElementById('northRed').setAttribute("background-color","#FF033E");
-            document.getElementById('northGreen').setAttribute("background-color","black");
+            document.getElementById('northRed').setAttribute("style", "backgorund-color:#920224");
+            document.getElementById('northGreen').setAttribute("style", "backgorund-color:#5adf02");
         }
 
         /*if(data.timerNorth != 0){
@@ -55,3 +52,55 @@ function updateData(){
 }
 
 setInterval(updateData,100);
+
+function signalControl(){
+    var data1 = document.getElementById('timerNorth').innerHTML;
+    if(data1 == '0'){
+        document.getElementById('northRed').setAttribute('style','background-color:#FF033E');
+        document.getElementById('northGreen').setAttribute('style','background-color:#337f00');
+        document.getElementById('northRed').setAttribute('style','box-shadow: 0 0 5px 2px #fe2255,0 0 11px 6px #d46c6c');
+    }
+    else{
+        document.getElementById('northRed').setAttribute('style','background-color:#920224');
+        document.getElementById('northGreen').setAttribute('style','background-color:#5adf02');
+        document.getElementById('northGreen').setAttribute('style','box-shadow: 0 0 5px 2px #93e05f,0 0 9px 5px #ffffff');
+    }
+
+    var data2 = document.getElementById('timerSouth').innerHTML;
+    if(data2 == '0'){
+        document.getElementById('southRed').setAttribute('style','background-color:#FF033E');
+        document.getElementById('southGreen').setAttribute('style','background-color:#337f00');
+        document.getElementById('southRed').setAttribute('style','box-shadow: 0 0 5px 2px #fe2255,0 0 11px 6px #d46c6c');
+    }
+    else{
+        document.getElementById('southRed').setAttribute('style','background-color:#920224');
+        document.getElementById('southGreen').setAttribute('style','background-color:#5adf02');
+        document.getElementById('southGreen').setAttribute('style','box-shadow: 0 0 5px 2px #93e05f,0 0 9px 5px #ffffff');
+    }
+
+    var data3 = document.getElementById('timerEast').innerHTML;
+    if(data3 == '0'){
+        document.getElementById('eastRed').setAttribute('style','background-color:#FF033E');
+        document.getElementById('eastGreen').setAttribute('style','background-color:#337f00');
+        document.getElementById('eastRed').setAttribute('style','box-shadow: 0 0 5px 2px #fe2255,0 0 11px 6px #d46c6c');
+    }
+    else{
+        document.getElementById('eastRed').setAttribute('style','background-color:#920224');
+        document.getElementById('eastGreen').setAttribute('style','background-color:#5adf02');
+        document.getElementById('eastGreen').setAttribute('style','box-shadow: 0 0 5px 2px #93e05f,0 0 7px 5px #ffffff');
+    }
+
+    var data4 = document.getElementById('timerWest').innerHTML;
+    if(data4 == '0'){
+        document.getElementById('westRed').setAttribute('style','background-color:#FF033E');
+        document.getElementById('westGreen').setAttribute('style','background-color:#337f00');
+        document.getElementById('westRed').setAttribute('style','box-shadow: 0 0 5px 2px #fe2255,0 0 11px 6px #d46c6c');
+    }
+    else{
+        document.getElementById('westRed').setAttribute('style','background-color:#920224');
+        document.getElementById('westGreen').setAttribute('style','background-color:#5adf02');
+        document.getElementById('westGreen').setAttribute('style','box-shadow: 0 0 5px 2px #93e05f,0 0 7px 5px #ffffff');
+    }
+}
+
+setInterval(signalControl,100);

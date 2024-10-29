@@ -51,6 +51,8 @@ def getData(request):
                 numberOfVehicles += 1
 
         timeAlloted = numberOfVehicles*0.57+9.40
+        if(timeAlloted<15):
+            timeAlloted = 15
         data['noOfVehiclesNorth'] = numberOfVehicles
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
@@ -73,6 +75,8 @@ def getData(request):
                 numberOfVehicles += 1
 
         timeAlloted = numberOfVehicles*0.57+9.40
+        if(timeAlloted<15):
+            timeAlloted = 15
         data['noOfVehiclesEast'] = numberOfVehicles
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
@@ -95,6 +99,8 @@ def getData(request):
                 numberOfVehicles += 1
         
         timeAlloted = numberOfVehicles*0.57+9.40
+        if(timeAlloted<15):
+            timeAlloted = 15
         data['noOfVehiclesSouth'] = numberOfVehicles
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
@@ -106,7 +112,7 @@ def getData(request):
         return JsonResponse(data)
     elif(token == 4 and data['timerSouth'] == 0):
         token = 1
-        frame = cv.imread('trafficTest.jpeg')
+        frame = cv.imread('trafficTest5.jpeg')
         results = model(frame)
 
         for r in results:
@@ -117,6 +123,8 @@ def getData(request):
                 numberOfVehicles += 1
 
         timeAlloted = numberOfVehicles*0.57+9.40
+        if(timeAlloted<15):
+            timeAlloted = 15
         data['noOfVehiclesWest'] = numberOfVehicles
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
