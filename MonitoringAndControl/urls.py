@@ -5,5 +5,12 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('getData',views.getData,name='getData'),
     path('displayWest',views.displayWest,name='displayWest'),
-    path('videoFeed/',views.videoFeed,name = 'videoFeed'),
+    path('displayEast',views.displayEast,name='displayEast'),
+    path('videoFeedWest/',views.videoFeedWest,name = 'videoFeedWest'),
+    path('videoFeedEast/',views.videoFeedEast,name = 'videoFeedEast'),
+
+    path('displayNorth',views.displayNorth,name='displayNorth'),
+    path('displaySouth',views.displaySouth,name='displaySouth'),
+    path('videoFeedNorth/',views.videoFeedNorth,name = 'videoFeedNorth'),
+    path('videoFeedSouth/',views.videoFeedSouth,name = 'videoFeedSouth'),
 ]

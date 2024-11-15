@@ -17,12 +17,16 @@ token = 1
 
 data = {'noOfVehiclesWest':0,
         'timerWest':0,
+        'estimatedWaitTimeWest':0,
         'noOfVehiclesNorth':0,
         'timerNorth':0,
+        'estimatedWaitTimeNorth':0,
         'noOfVehiclesSouth':0,
         'timerSouth':0,
+        'estimatedWaitTimeSouth':0,
         'noOfVehiclesEast':0,   
-        'timerEast':0,     
+        'timerEast':0, 
+        'estimatedWaitTimeEast':0,    
 }
 
 timeTemp = datetime.datetime.now() + datetime.timedelta(0,2,0)
@@ -173,11 +177,11 @@ def getData(request):
     return JsonResponse(data)
 
 def displayWest(request):
-    template = loader.get_template('display.html')
+    template = loader.get_template('display_west.html')
     return HttpResponse(template.render())
 
 
-def vidStream():
+def vidStreamWest():
     #frame = cv.imread('trafficTest2.jpeg')
     while True:
         frame = cv.imread('trafficTest2.jpeg')
@@ -185,6 +189,52 @@ def vidStream():
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
         
-def videoFeed(request):
-    return StreamingHttpResponse(vidStream(),content_type = 'multipart/x-mixed-replace; boundary=frame')
+def videoFeedWest(request):
+    return StreamingHttpResponse(vidStreamWest(),content_type = 'multipart/x-mixed-replace; boundary=frame')
 
+def displayEast(request):
+    template = loader.get_template('display_east.html')
+    return HttpResponse(template.render())
+
+def vidStreamEast():
+    #frame = cv.imread('trafficTest2.jpeg')
+    while True:
+        frame = cv.imread('trafficTest.jpeg')
+        image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
+        yield(b'--frame\r\n'
+              b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
+        
+def videoFeedEast(request):
+    return StreamingHttpResponse(vidStreamEast(),content_type = 'multipart/x-mixed-replace; boundary=frame')
+
+
+def displayNorth(request):
+    template = loader.get_template('display_north.html')
+    return HttpResponse(template.render())
+
+def vidStreamNorth():
+    #frame = cv.imread('trafficTest2.jpeg')
+    while True:
+        frame = cv.imread('trafficTest3.jpeg')
+        image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
+        yield(b'--frame\r\n'
+              b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
+        
+def videoFeedNorth(request):
+    return StreamingHttpResponse(vidStreamNorth(),content_type = 'multipart/x-mixed-replace; boundary=frame')
+
+
+def displaySouth(request):
+    template = loader.get_template('display_south.html')
+    return HttpResponse(template.render())
+
+def vidStreamSouth():
+    #frame = cv.imread('trafficTest2.jpeg')
+    while True:
+        frame = cv.imread('trafficTest5.jpeg')
+        image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
+        yield(b'--frame\r\n'
+              b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
+        
+def videoFeedSouth(request):
+    return StreamingHttpResponse(vidStreamSouth(),content_type = 'multipart/x-mixed-replace; boundary=frame')
