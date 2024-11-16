@@ -78,6 +78,7 @@ def detectVehicleWest():
         for i in boxArray:
             numberOfVehicles += 1
     data['noOfVehiclesWest'] = numberOfVehicles
+    
     time.sleep(5)
     detectVehicleWest()
 
@@ -117,6 +118,27 @@ def homepage(request):
     }
     return HttpResponse(template.render(context,request))
 
+def calculateEstimatedWaitTime():
+    if token == 2: #2 is North
+        data['estimatedWaitTimeWest'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesEast']*0.57+9.40)+(data['noOfVehiclesSouth']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeNorth'] = 0
+        data['estimatedWaitTimeEast'] = (timeTemp-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeSouth'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesEast']*0.57+9.40),0)-datetime.datetime.now()).seconds
+    elif token == 3: #3 is East
+        data['estimatedWaitTimeWest'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesSouth']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeNorth'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesSouth']*0.57+9.40)+(data['noOfVehiclesWest']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeEast'] = 0
+        data['estimatedWaitTimeSouth'] = (timeTemp-datetime.datetime.now()).seconds
+    elif token == 4: #4 is South
+        data['estimatedWaitTimeWest'] = (timeTemp-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeNorth'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesWest']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeEast'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesWest']*0.57+9.40)+(data['noOfVehiclesNorth']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeSouth'] = 0
+    elif token == 1: #1 is West
+        data['estimatedWaitTimeWest'] = 0
+        data['estimatedWaitTimeNorth'] = (timeTemp-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeEast'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesNorth']*0.57+9.40),0)-datetime.datetime.now()).seconds
+        data['estimatedWaitTimeSouth'] = (timeTemp+datetime.timedelta(0,(data['noOfVehiclesNorth']*0.57+9.40)+(data['noOfVehiclesEast']*0.57+9.40),0)-datetime.datetime.now()).seconds
 
 def getData(request):
     global token,timeTemp
@@ -128,11 +150,13 @@ def getData(request):
         #data['noOfVehiclesNorth'] = numberOfVehicles
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
-        data['timerNorth'] = difference.total_seconds()
+        data['timerNorth'] = difference.seconds
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token ==2 and data['timerNorth']!=0):
         difference = timeTemp - datetime.datetime.now()
         data['timerNorth'] = difference.seconds
+        calculateEstimatedWaitTime()
         return JsonResponse(data) 
     elif(token == 2 and data['timerNorth'] == 0):
         token = 3
@@ -142,10 +166,12 @@ def getData(request):
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
         data['timerEast'] = difference.total_seconds()
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token == 3 and data['timerEast']!=0):
         difference = timeTemp - datetime.datetime.now()
         data['timerEast'] = difference.seconds
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token == 3 and data['timerEast']==0):
         token = 4
@@ -156,10 +182,12 @@ def getData(request):
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
         data['timerSouth'] = difference.total_seconds()
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token == 4 and data['timerSouth']!=0):
         difference = timeTemp - datetime.datetime.now()
         data['timerSouth'] = difference.seconds
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token == 4 and data['timerSouth'] == 0):
         token = 1
@@ -169,10 +197,12 @@ def getData(request):
         timeTemp += datetime.timedelta(0,timeAlloted,0)
         difference = timeTemp - datetime.datetime.now()
         data['timerWest'] = difference.total_seconds()
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     elif(token == 1 and data['timerWest']!=0):
         difference = timeTemp - datetime.datetime.now()
         data['timerWest'] = difference.seconds
+        calculateEstimatedWaitTime()
         return JsonResponse(data)
     return JsonResponse(data)
 
@@ -185,6 +215,12 @@ def vidStreamWest():
     #frame = cv.imread('trafficTest2.jpeg')
     while True:
         frame = cv.imread('trafficTest2.jpeg')
+        results = model(frame)
+        for r in results:
+            boxTensor = r.boxes.xyxy
+            boxArray = boxTensor.cpu().numpy()
+            for i in boxArray:
+                frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
@@ -200,6 +236,12 @@ def vidStreamEast():
     #frame = cv.imread('trafficTest2.jpeg')
     while True:
         frame = cv.imread('trafficTest.jpeg')
+        results = model(frame)
+        for r in results:
+            boxTensor = r.boxes.xyxy
+            boxArray = boxTensor.cpu().numpy()
+            for i in boxArray:
+                frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
@@ -216,6 +258,12 @@ def vidStreamNorth():
     #frame = cv.imread('trafficTest2.jpeg')
     while True:
         frame = cv.imread('trafficTest3.jpeg')
+        results = model(frame)
+        for r in results:
+            boxTensor = r.boxes.xyxy
+            boxArray = boxTensor.cpu().numpy()
+            for i in boxArray:
+                frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')
@@ -232,6 +280,12 @@ def vidStreamSouth():
     #frame = cv.imread('trafficTest2.jpeg')
     while True:
         frame = cv.imread('trafficTest5.jpeg')
+        results = model(frame)
+        for r in results:
+            boxTensor = r.boxes.xyxy
+            boxArray = boxTensor.cpu().numpy()
+            for i in boxArray:
+                frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
         yield(b'--frame\r\n'
               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')

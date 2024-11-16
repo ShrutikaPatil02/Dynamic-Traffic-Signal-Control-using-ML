@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Signal Status</title>
     <link rel="stylesheet" href="{% static 'homepageStyles.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,10 @@
                 <td class="attribute">Timer</td>
                 <td class="values" id="timerWest">{{timer}}</td>
             </tr>
+            <tr>
+                <td class="attribute">Est. Wait Time</td>
+                <td class="values" id="estimatedWaitTimeWest">0</td>
+            </tr>
         </table>
         <div class="signal">
             <div class="light" id="westRed"></div>
@@ -44,6 +48,10 @@
                     <td class="attribute">Timer</td>
                     <td class="values" id="timerNorth">{{timer}}</td>
                 </tr>
+                <tr>
+                    <td class="attribute">Est. Wait Time</td>
+                    <td class="values" id="estimatedWaitTimeNorth">0</td>
+                </tr>
             </table>
             <div class="signal">
                 <div class="light" id="northRed"></div>
@@ -61,6 +69,10 @@
                     <tr>
                         <td class="attribute">Timer</td>
                         <td class="values" id="timerSouth">{{timer}}</td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">Est. Wait Time</td>
+                        <td class="values" id="estimatedWaitTimeSouth">0</td>
                     </tr>
                 </table>
                 <div class="signal">
@@ -84,6 +96,10 @@
             <tr>
                 <td class="attribute">Timer</td>
                 <td class="values" id="timerEast">{{timer}}</td>
+            </tr>
+            <tr>
+                <td class="attribute">Est. Wait Time</td>
+                <td class="values" id="estimatedWaitTimeEast">0</td>
             </tr>
         </table>
 

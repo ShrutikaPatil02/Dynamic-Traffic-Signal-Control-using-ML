@@ -1,12 +1,18 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'display_styles.css' %}">
+    <title>Video of West Lane</title>
 </head>
+
 <body>
-    <img src="{% url 'videoFeedWest' %}" alt="Traffic" height="300" width="300"></img>
-    
+    <div>
+        <img src="{% url 'videoFeedWest' %}" alt="Traffic" height="300" width="300"></img>
+    </div>
 </body>
+
 </html>

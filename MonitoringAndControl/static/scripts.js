@@ -10,44 +10,10 @@ function updateData(){
         document.getElementById('timerWest').innerHTML = data.timerWest;
         document.getElementById('noOfVehiclesSouth').innerHTML = data.noOfVehiclesSouth;
         document.getElementById('timerSouth').innerHTML = data.timerSouth;
-
-        /*if(data.timerNorth == 0){
-            document.getElementById('northRed').setAttribute("style", "backgorund-color:#FF033E");
-            document.getElementById('northGreen').setAttribute("style", "backgorund-color:#337f00");
-        }
-        else{
-            document.getElementById('northRed').setAttribute("style", "backgorund-color:#920224");
-            document.getElementById('northGreen').setAttribute("style", "backgorund-color:#5adf02");
-        }
-
-        /*if(data.timerNorth != 0){
-            document.getElementById('northRed').setAttribute("background-color","#FF033E");
-            document.getElementById('northGreen').setAttribute("background-color","black");
-        }
-        else{
-            document.getElementById('northRed').setAttribute("background-color","black");
-            document.getElementById('northGreen').setAttribute("background-color","#5adf02");
-        }
-
-        /*if(data.timerSouth > 0){
-            document.getElementById('southRed').setAttribute("background-color","#FF033E");
-            document.getElementById('southGreen').setAttribute("background-color","#41a002");
-        }
-        else{
-            document.getElementById('southRed').setAttribute("background-color","#920224");
-            document.getElementById('southGreen').setAttribute("background-color","#5adf02");
-        }
-
-        if(data.timerEast > 0){
-            document.getElementById('eastRed').setAttribute("background-color","#FF033E");
-            document.getElementById('eastGreen').setAttribute("background-color","#41a002");
-        }
-        else{
-            document.getElementById('eastRed').setAttribute("background-color","#920224");
-            document.getElementById('eastGreen').setAttribute("background-color","#5adf02");
-        }*/
-
-
+        document.getElementById('estimatedWaitTimeWest').innerHTML = data.estimatedWaitTimeWest;
+        document.getElementById('estimatedWaitTimeNorth').innerHTML = data.estimatedWaitTimeNorth;
+        document.getElementById('estimatedWaitTimeEast').innerHTML = data.estimatedWaitTimeEast;
+        document.getElementById('estimatedWaitTimeSouth').innerHTML = data.estimatedWaitTimeSouth;
     });
 }
 
