@@ -13,4 +13,6 @@ urlpatterns = [
     path('displaySouth',views.displaySouth,name='displaySouth'),
     path('videoFeedNorth/',views.videoFeedNorth,name = 'videoFeedNorth'),
     path('videoFeedSouth/',views.videoFeedSouth,name = 'videoFeedSouth'),
+
+    path('getDisplayData',views.getDisplayData,name='getDisplayData'),
 ]

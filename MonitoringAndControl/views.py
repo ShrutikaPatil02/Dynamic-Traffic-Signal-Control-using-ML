@@ -312,6 +312,9 @@ def getData(request):
         return JsonResponse(data)
     return JsonResponse(data)
 
+def getDisplayData(request):
+    return JsonResponse(data)
+
 def displayWest(request):
     template = loader.get_template('display_west.html')
     return HttpResponse(template.render())
@@ -328,11 +331,11 @@ def vidStreamWest():
             boxArray = boxTensor.cpu().numpy()
             for i in range(len(boxes)):
                 if boxes[i].cls == 2: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(255,0,0),2)
                 elif boxes[i].cls == 3: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,255,0),2)
                 elif boxes[i].cls == 7 or boxes[i].cls == 5: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,0,255),2)
                 else:
                     continue
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
@@ -357,11 +360,11 @@ def vidStreamEast():
             boxArray = boxTensor.cpu().numpy()
             for i in range(len(boxes)):
                 if boxes[i].cls == 2: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(255,0,0),2)
                 elif boxes[i].cls == 3: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,255,0),2)
                 elif boxes[i].cls == 7 or boxes[i].cls == 5: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,0,255),2)
                 else:
                     continue
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
@@ -387,11 +390,11 @@ def vidStreamNorth():
             boxArray = boxTensor.cpu().numpy()
             for i in range(len(boxes)):
                 if boxes[i].cls == 2: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(255,0,0),2)
                 elif boxes[i].cls == 3: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,255,0),2)
                 elif boxes[i].cls == 7 or boxes[i].cls == 5: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,0,255),2)
                 else:
                     continue
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
@@ -417,11 +420,11 @@ def vidStreamSouth():
             boxArray = boxTensor.cpu().numpy()
             for i in range(len(boxes)):
                 if boxes[i].cls == 2: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(255,0,0),2)
                 elif boxes[i].cls == 3: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,255,0),2)
                 elif boxes[i].cls == 7 or boxes[i].cls == 5: 
-                    frame = cv.rectangle(frame,(int(i[0]),int(i[1])),(int(i[2]),int(i[3])),(255,0,0),2)
+                    frame = cv.rectangle(frame, (int(boxArray[i][0]),int(boxArray[i][1])),(int(boxArray[i][2]),int(boxArray[i][3])),(0,0,255),2)
                 else:
                     continue
         image_bytes = cv.imencode('.jpg',frame)[1].tobytes()
